@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAIR® Cap — Tenez votre cap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C79D43;
+    --gold-light: #E8C96A;
+    --gold-pale: rgba(199,157,67,0.12);
+    --navy: #1A2535;
+    --navy-mid: #243045;
+    --steel: #6286A0;
+    --steel-light: #8AAFC8;
+    --white: #F8F6F2;
+    --text: #2C2C2C;
+    --text-soft: #6B6B6B;
+    --border: rgba(199,157,67,0.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 20% 10%, rgba(98,134,160,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 80%, rgba(199,157,67,0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* HEADER */
+  header {
+    padding: 48px 0 32px;
+    text-align: center;
+    position: relative;
+  }
+
+  .logo-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .logo-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.05em;
+    line-height: 1;
+  }
+
+  .logo-main span {
+    color: var(--gold);
+  }
+
+  .logo-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--steel-light);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .header-line {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 24px auto;
+    opacity: 0.6;
+  }
+
+  .header-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(248,246,242,0.75);
+    line-height: 1.7;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* PROGRESS */
+  .progress-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 40px 0 48px;
+  }
+
+  .progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+
+  .progress-step .dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(199,157,67,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(199,157,67,0.4);
+    transition: all 0.4s ease;
+    background: var(--navy-mid);
+  }
+
+  .progress-step.active .dot {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(199,157,67,0.1);
+    box-shadow: 0 0 16px rgba(199,157,67,0.2);
+  }
+
+  .progress-step.done .dot {
+    border-color: var(--gold);
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .progress-step .label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(248,246,242,0.3);
+    transition: color 0.4s;
+    white-space: nowrap;
+  }
+
+  .progress-step.active .label {
+    color: var(--gold);
+  }
+
+  .progress-connector {
+    width: 60px;
+    height: 1px;
+    background: rgba(199,157,67,0.2);
+    margin-bottom: 24px;
+    transition: background 0.4s;
+  }
+
+  .progress-connector.done {
+    background: var(--gold);
+  }
+
+  /* CARDS / PANELS */
+  .panel {
+    background: rgba(36,48,69,0.7);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 40px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(12px);
+    display: none;
+    animation: fadeUp 0.4s ease forwards;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-number {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+
+  .panel-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .panel-desc {
+    font-size: 14px;
+    color: rgba(248,246,242,0.55);
+    line-height: 1.7;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+
+  /* FORM ELEMENTS */
+  label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--steel-light);
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+
+  input[type="text"], textarea, select {
+    width: 100%;
+    background: rgba(26,37,53,0.8);
+    border: 1px solid rgba(199,157,67,0.2);
+    border-radius: 1px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.3s;
+    resize: none;
+  }
+
+  input[type="text"]:focus, textarea:focus, select:focus {
+    border-color: var(--gold);
+    background: rgba(26,37,53,0.95);
+  }
+
+  input[type="text"]::placeholder, textarea::placeholder {
+    color: rgba(248,246,242,0.25);
+  }
+
+  select option {
+    background: var(--navy-mid);
+    color: var(--white);
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  /* DECISION TYPES */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .type-option {
+    border: 1px solid rgba(199,157,67,0.2);
+    border-radius: 2px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .type-option:hover {
+    border-color: rgba(199,157,67,0.5);
+    background: rgba(199,157,67,0.05);
+  }
+
+  .type-option.selected {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+
+  .type-option .type-icon {
+    font-size: 18px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .type-option .type-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--white);
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .type-option .type-sub {
+    font-size: 11px;
+    color: rgba(248,246,242,0.4);
+  }
+
+  /* ACTORS */
+  .actor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .actor-card {
+    background: rgba(26,37,53,0.6);
+    border: 1px solid rgba(199,157,67,0.15);
+    border-radius: 2px;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    align-items: center;
+    animation: fadeUp 0.3s ease;
+  }
+
+  .actor-card input {
+    margin: 0;
+  }
+
+  .posture-select {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .remove-actor {
+    background: none;
+    border: none;
+    color: rgba(199,157,67,0.4);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 4px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .remove-actor:hover { color: var(--gold); }
+
+  .add-actor-btn {
+    background: none;
+    border: 1px dashed rgba(199,157,67,0.3);
+    border-radius: 2px;
+    color: rgba(199,157,67,0.6);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 12px;
+    width: 100%;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .add-actor-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: var(--gold-pale);
+  }
+
+  /* PROFILE SLIDERS */
+  .profile-item {
+    margin-bottom: 28px;
+  }
+
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+
+  .profile-question {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(248,246,242,0.85);
+  }
+
+  .profile-poles {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .profile-poles span {
+    font-size: 11px;
+    color: rgba(248,246,242,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 2px;
+    background: rgba(199,157,67,0.2);
+    border-radius: 0;
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(199,157,67,0.4);
+  }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--gold);
+    border: none;
+    border-radius: 1px;
+    color: var(--navy);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(199,157,67,0.25);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary {
+    background: none;
+    border: 1px solid rgba(199,157,67,0.3);
+    border-radius: 1px;
+    color: rgba(199,157,67,0.7);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    padding: 14px 28px;
+    transition: all 0.25s;
+    margin-right: 12px;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .btn-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+
+  /* LOADING */
+  .loading-panel {
+    text-align: center;
+    padding: 60px 40px;
+    display: none;
+  }
+
+  .loading-panel.active { display: block; }
+
+  .loading-orb {
+    width: 64px;
+    height: 64px;
+    border: 1.5px solid rgba(199,157,67,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    margin: 0 auto 24px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(248,246,242,0.6);
+  }
+
+  .loading-sub {
+    font-size: 12px;
+    color: rgba(248,246,242,0.3);
+    margin-top: 8px;
+    letter-spacing: 0.1em;
+  }
+
+  /* RESULTS */
+  .results-panel {
+    display: none;
+  }
+
+  .results-panel.active { display: block; }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .results-decision {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--steel-light);
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .results-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .results-title em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  /* SI-ALORS CARDS */
+  .sialors-section {
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(199,157,67,0.2);
+  }
+
+  .sialors-card {
+    background: rgba(36,48,69,0.6);
+    border: 1px solid rgba(199,157,67,0.15);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 2px 2px 0;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .sialors-actor {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: none;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .sialors-si {
+    font-size: 13px;
+    color: rgba(248,246,242,0.4);
+    margin-bottom: 4px;
+    font-weight: 300;
+  }
+
+  .sialors-condition {
+    font-size: 13px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(248,246,242,0.55);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    border-bottom: 1px solid rgba(199,157,67,0.1);
+    padding-bottom: 16px;
+  }
+
+  .sialors-response {
+    font-size: 14px;
+    color: rgba(248,246,242,0.85);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* INSIGHT */
+  .insight-block {
+    background: rgba(199,157,67,0.07);
+    border: 1px solid rgba(199,157,67,0.2);
+    border-radius: 2px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+
+  .insight-label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .insight-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(248,246,242,0.85);
+    line-height: 1.7;
+  }
+
+  /* CTA FINAL */
+  .cta-block {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .cta-sub {
+    font-size: 14px;
+    color: rgba(248,246,242,0.5);
+    margin-bottom: 28px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .cta-email {
+    font-size: 14px;
+    color: var(--steel-light);
+    margin-top: 16px;
+  }
+
+  .cta-email a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 24px 0 40px;
+    font-size: 12px;
+    color: rgba(248,246,242,0.2);
+    letter-spacing: 0.1em;
+    border-top: 1px solid rgba(199,157,67,0.1);
+  }
+
+  /* PRINT */
+  .print-btn {
+    background: none;
+    border: none;
+    color: rgba(248,246,242,0.3);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .print-btn:hover { color: var(--gold); }
+
+  .results-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 600px) {
+    .type-grid { grid-template-columns: 1fr; }
+    .actor-card { grid-template-columns: 1fr; }
+    .panel { padding: 28px 20px; }
+    .logo-main { font-size: 38px; }
+  }
+
+  /* STAKEHOLDER MAP */
+  .map-intro {
+    font-size: 13px;
+    color: rgba(248,246,242,0.45);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .stakeholder-map {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .map-category {
+    border: 1px solid rgba(199,157,67,0.2);
+    border-radius: 2px;
+    padding: 14px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    position: relative;
+  }
+
+  .map-category:hover {
+    border-color: var(--gold);
+    background: var(--gold-pale);
+  }
+
+  .map-category .cat-icon { font-size: 22px; display: block; margin-bottom: 6px; }
+  .map-category .cat-label { font-size: 12px; font-weight: 500; color: var(--white); display: block; }
+  .map-category .cat-sub { font-size: 10px; color: rgba(248,246,242,0.35); display: block; margin-top: 2px; }
+
+  .map-category .cat-count {
+    position: absolute;
+    top: 6px; right: 8px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    display: none;
+  }
+
+  .map-category.has-actors .cat-count { display: block; }
+  .map-category.has-actors { border-color: rgba(199,157,67,0.5); background: rgba(199,157,67,0.06); }
+
+  /* SELECTED ACTORS */
+  .selected-actors-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--steel-light);
+    margin-bottom: 12px;
+  }
+
+  .actor-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 40px;
+    padding: 12px;
+    background: rgba(26,37,53,0.4);
+    border: 1px dashed rgba(199,157,67,0.15);
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  .actor-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid;
+    animation: fadeUp 0.2s ease;
+  }
+
+  .actor-chip.bruyant_contre   { border-color: rgba(220,80,80,0.5); background: rgba(220,80,80,0.1); color: #f08080; }
+  .actor-chip.silencieux_contre{ border-color: rgba(220,150,50,0.5); background: rgba(220,150,50,0.1); color: #e0a060; }
+  .actor-chip.incertain        { border-color: rgba(200,180,50,0.5); background: rgba(200,180,50,0.08); color: #d4c060; }
+  .actor-chip.neutre           { border-color: rgba(150,150,150,0.4); background: rgba(150,150,150,0.08); color: #aaa; }
+  .actor-chip.soutien_sincere  { border-color: rgba(80,180,80,0.4); background: rgba(80,180,80,0.08); color: #80c880; }
+  .actor-chip.soutien_interesse{ border-color: rgba(199,157,67,0.5); background: rgba(199,157,67,0.1); color: var(--gold); }
+
+  .chip-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    font-size: 14px;
+    padding: 0;
+    line-height: 1;
+    transition: opacity 0.2s;
+  }
+  .chip-remove:hover { opacity: 1; }
+
+  .chip-edit {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.5;
+    font-size: 12px;
+    padding: 0 2px;
+    line-height: 1;
+    transition: opacity 0.2s;
+  }
+  .chip-edit:hover { opacity: 1; }
+
+  .actor-chips-empty {
+    font-size: 12px;
+    color: rgba(248,246,242,0.2);
+    font-style: italic;
+    align-self: center;
+  }
+
+  /* MODES OPERATOIRES */
+  .modes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .mode-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border: 1px solid rgba(199,157,67,0.12);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .mode-option:hover { border-color: rgba(199,157,67,0.35); background: rgba(199,157,67,0.04); }
+
+  .mode-option.selected {
+    border-color: rgba(199,157,67,0.5);
+    background: rgba(199,157,67,0.08);
+  }
+
+  .mode-option input[type="checkbox"] { display: none; }
+
+  .mode-check {
+    width: 14px; height: 14px;
+    border: 1.5px solid rgba(199,157,67,0.3);
+    border-radius: 2px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    transition: all 0.2s;
+  }
+
+  .mode-option.selected .mode-check {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+
+  .mode-icon { font-size: 14px; flex-shrink: 0; }
+
+  .mode-label { font-size: 12px; color: rgba(248,246,242,0.8); line-height: 1.3; }
+  .mode-sub { font-size: 10px; color: rgba(248,246,242,0.35); }
+
+  .mode-warning {
+    font-size: 12px;
+    color: rgba(199,157,67,0.7);
+    font-style: italic;
+    padding: 8px 12px;
+    border-left: 2px solid rgba(199,157,67,0.3);
+    margin-bottom: 8px;
+    display: none;
+  }
+
+  .mode-warning.visible { display: block; }
+
+  .modal-scroll {
+    max-height: 75vh;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .modal-scroll::-webkit-scrollbar { width: 4px; }
+  .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+  .modal-scroll::-webkit-scrollbar-thumb { background: rgba(199,157,67,0.2); border-radius: 2px; }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,18,30,0.85);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 32px;
+    width: 100%;
+    max-width: 440px;
+    transform: translateY(16px);
+    transition: transform 0.3s;
+  }
+
+  .modal-overlay.open .modal { transform: translateY(0); }
+
+  .modal-category {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .posture-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0 24px;
+  }
+
+  .posture-option {
+    padding: 10px 14px;
+    border: 1px solid rgba(199,157,67,0.15);
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .posture-option:hover { border-color: rgba(199,157,67,0.4); background: var(--gold-pale); }
+  .posture-option.selected { border-color: var(--gold); background: var(--gold-pale); }
+  .posture-option .posture-desc { font-size: 11px; color: rgba(248,246,242,0.4); margin-top: 2px; }
+
+  .modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  /* MEMORY INDICATOR */
+  .memory-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: rgba(199,157,67,0.6);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .memory-badge:hover { color: var(--gold); }
+  .memory-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); opacity: 0.7; }
+
+  @media (max-width: 600px) {
+    .stakeholder-map { grid-template-columns: repeat(2, 1fr); }
+  }</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo-mark">Tiers de confiance du dirigeant</div>
+    <div class="logo-main">CLAIR<span>®</span> Cap</div>
+    <div class="logo-sub">Tenez votre cap quand tout cherche à vous en écarter</div>
+    <div class="header-line"></div>
+    <p class="header-intro">Vous avez pris une décision difficile. Ce qui vient maintenant, c'est plus dur encore : la tenir face à un écosystème qui pourrait avoir tendance, consciemment ou non, à chercher à l'infléchir.</p>
+  </header>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progressBar">
+    <div class="progress-step active" data-step="1">
+      <div class="dot">1</div>
+      <div class="label">Décision</div>
+    </div>
+    <div class="progress-connector" id="conn1"></div>
+    <div class="progress-step" data-step="2">
+      <div class="dot">2</div>
+      <div class="label">Écosystème</div>
+    </div>
+    <div class="progress-connector" id="conn2"></div>
+    <div class="progress-step" data-step="3">
+      <div class="dot">3</div>
+      <div class="label">Profil</div>
+    </div>
+    <div class="progress-connector" id="conn3"></div>
+    <div class="progress-step" data-step="4">
+      <div class="dot">4</div>
+      <div class="label">Résultats</div>
+    </div>
+  </div>
+
+  <!-- STEP 1 : DECISION -->
+  <div class="panel active" id="step1">
+    <div class="panel-number">Étape 01 — La décision</div>
+    <div class="panel-title">Quelle décision avez-vous prise ?</div>
+    <p class="panel-desc">Formulez-la clairement, à la première personne. Pas "il faudrait que" — ce que vous avez décidé.</p>
+
+    <div class="form-group">
+      <label>La décision en une phrase</label>
+      <textarea id="decisionText" rows="3" placeholder="J'ai décidé de…"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>De quel type de décision s'agit-il ?</label>
+      <div class="type-grid">
+        <div class="type-option" data-type="organisation" onclick="selectType(this)">
+          <span class="type-icon">🏗️</span>
+          <span class="type-label">Réorganisation</span>
+          <span class="type-sub">Structure, équipes, rôles</span>
+        </div>
+        <div class="type-option" data-type="strategie" onclick="selectType(this)">
+          <span class="type-icon">🧭</span>
+          <span class="type-label">Pivot stratégique</span>
+          <span class="type-sub">Offre, marché, positionnement</span>
+        </div>
+        <div class="type-option" data-type="rh" onclick="selectType(this)">
+          <span class="type-icon">👤</span>
+          <span class="type-label">Décision RH difficile</span>
+          <span class="type-sub">Départ, recrutement clé, séparation</span>
+        </div>
+        <div class="type-option" data-type="cession" onclick="selectType(this)">
+          <span class="type-icon">🤝</span>
+          <span class="type-label">Cession / Transmission</span>
+          <span class="type-sub">Vente, acquisition, association</span>
+        </div>
+        <div class="type-option" data-type="investissement" onclick="selectType(this)">
+          <span class="type-icon">📈</span>
+          <span class="type-label">Investissement majeur</span>
+          <span class="type-sub">Capacité, outil, digital</span>
+        </div>
+        <div class="type-option" data-type="autre" onclick="selectType(this)">
+          <span class="type-icon">⚡</span>
+          <span class="type-label">Autre décision</span>
+          <span class="type-sub">Une rupture significative</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Depuis combien de temps cette décision mûrit-elle ?</label>
+      <select id="decisionAge">
+        <option value="">—</option>
+        <option value="recent">Quelques semaines</option>
+        <option value="moyen">Plusieurs mois</option>
+        <option value="long">Plus d'un an</option>
+      </select>
+    </div>
+
+    <div class="btn-row">
+      <div></div>
+      <button class="btn-primary" onclick="goToStep(2)">Continuer →</button>
+    </div>
+  </div>
+
+  <!-- STEP 2 : ECOSYSTEM MAP -->
+  <div class="panel" id="step2">
+    <div class="panel-number">Étape 02 — L'écosystème</div>
+    <div class="panel-title">Qui pourrait chercher à vous faire dévier ?</div>
+    <p class="panel-desc">Cliquez sur une catégorie pour ajouter un acteur et qualifier sa posture face à votre décision.</p>
+
+    <div class="stakeholder-map" id="stakeholderMap">
+      <div class="map-category" data-cat="associes" onclick="openModal('associes')">
+        <span class="cat-icon">🤝</span>
+        <span class="cat-label">Associés</span>
+        <span class="cat-sub">Actionnaires, co-fondateurs</span>
+        <span class="cat-count" id="count-associes">0</span>
+      </div>
+      <div class="map-category" data-cat="direction" onclick="openModal('direction')">
+        <span class="cat-icon">🏛️</span>
+        <span class="cat-label">Direction</span>
+        <span class="cat-sub">CODIR, managers clés</span>
+        <span class="cat-count" id="count-direction">0</span>
+      </div>
+      <div class="map-category" data-cat="equipe" onclick="openModal('equipe')">
+        <span class="cat-icon">👥</span>
+        <span class="cat-label">Équipe</span>
+        <span class="cat-sub">Collaborateurs, IRP</span>
+        <span class="cat-count" id="count-equipe">0</span>
+      </div>
+      <div class="map-category" data-cat="experts" onclick="openModal('experts')">
+        <span class="cat-icon">⚖️</span>
+        <span class="cat-label">Experts</span>
+        <span class="cat-sub">Avocat, expert-comptable, banquier</span>
+        <span class="cat-count" id="count-experts">0</span>
+      </div>
+      <div class="map-category" data-cat="clients" onclick="openModal('clients')">
+        <span class="cat-icon">🎯</span>
+        <span class="cat-label">Clients clés</span>
+        <span class="cat-sub">Comptes stratégiques</span>
+        <span class="cat-count" id="count-clients">0</span>
+      </div>
+      <div class="map-category" data-cat="partenaires" onclick="openModal('partenaires')">
+        <span class="cat-icon">🔗</span>
+        <span class="cat-label">Partenaires</span>
+        <span class="cat-sub">Fournisseurs, sous-traitants</span>
+        <span class="cat-count" id="count-partenaires">0</span>
+      </div>
+      <div class="map-category" data-cat="proches" onclick="openModal('proches')">
+        <span class="cat-icon">🏠</span>
+        <span class="cat-label">Proches</span>
+        <span class="cat-sub">Famille, entourage personnel</span>
+        <span class="cat-count" id="count-proches">0</span>
+      </div>
+      <div class="map-category" data-cat="financeurs" onclick="openModal('financeurs')">
+        <span class="cat-icon">🏦</span>
+        <span class="cat-label">Financeurs</span>
+        <span class="cat-sub">Investisseurs, fonds</span>
+        <span class="cat-count" id="count-financeurs">0</span>
+      </div>
+      <div class="map-category" data-cat="autres" onclick="openModal('autres')">
+        <span class="cat-icon">+</span>
+        <span class="cat-label">Autres</span>
+        <span class="cat-sub">Tout autre acteur clé</span>
+        <span class="cat-count" id="count-autres">0</span>
+      </div>
+    </div>
+
+    <div class="selected-actors-label">Acteurs sélectionnés</div>
+    <div class="actor-chips" id="actorChips">
+      <span class="actor-chips-empty" id="chipsEmpty">Aucun acteur ajouté — cliquez sur une catégorie ci-dessus</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(1)">← Retour</button>
+      <button class="btn-primary" onclick="goToStep(3)">Continuer →</button>
+    </div>
+  </div>
+
+  <!-- STEP 3 : PROFILE -->
+  <div class="panel" id="step3">
+    <div class="panel-number">Étape 03 — Votre profil</div>
+    <div class="panel-title">Comment réagissez-vous sous pression ?</div>
+    <p class="panel-desc">Ces questions permettent d'adapter les si-alors à votre façon de fonctionner. Il n'y a pas de bonne réponse.</p>
+
+    <div class="profile-item">
+      <div class="profile-question">Face au conflit, votre réflexe est…</div>
+      <div class="profile-poles">
+        <span>Éviter, temporiser</span>
+        <span>Affronter directement</span>
+      </div>
+      <input type="range" id="p1" min="1" max="5" value="3">
+    </div>
+
+    <div class="profile-item">
+      <div class="profile-question">Votre rapport à l'opinion des autres…</div>
+      <div class="profile-poles">
+        <span>Peu influencé</span>
+        <span>Très sensible</span>
+      </div>
+      <input type="range" id="p2" min="1" max="5" value="3">
+    </div>
+
+    <div class="profile-item">
+      <div class="profile-question">Quand vous doutez, vous avez tendance à…</div>
+      <div class="profile-poles">
+        <span>Chercher plus d'informations</span>
+        <span>Reporter la décision</span>
+      </div>
+      <input type="range" id="p3" min="1" max="5" value="3">
+    </div>
+
+    <div class="profile-item">
+      <div class="profile-question">Votre plus grand risque dans cette décision…</div>
+      <div class="profile-poles">
+        <span>L'aller trop vite</span>
+        <span>Trop attendre</span>
+      </div>
+      <input type="range" id="p4" min="1" max="5" value="3">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-secondary" onclick="goToStep(2)">← Retour</button>
+      <button class="btn-primary" id="generateBtn" onclick="generateResults()">Générer mon analyse →</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="panel loading-panel" id="loadingPanel">
+    <div class="loading-orb"></div>
+    <div class="loading-text">Analyse en cours…</div>
+    <div class="loading-sub" id="loadingMsg">Lecture de votre décision</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-panel" id="resultsPanel">
+    <div class="results-header">
+      <div class="results-decision" id="resultsDecisionLabel"></div>
+      <div class="results-title">Votre plan d'<em>ancrage</em></div>
+    </div>
+
+    <div class="results-actions">
+      <div style="display:flex;gap:10px;align-items:center;">
+        <button class="btn-secondary" style="padding:10px 20px;font-size:12px;" onclick="backToStep(1)">← Décision</button>
+        <button class="btn-secondary" style="padding:10px 20px;font-size:12px;" onclick="backToStep(2)">← Écosystème</button>
+        <button class="btn-secondary" style="padding:10px 20px;font-size:12px;" onclick="backToStep(3)">← Profil</button>
+      </div>
+      <button class="print-btn" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Imprimer
+      </button>
+    </div>
+
+    <div id="sialorsContainer"></div>
+
+    <div class="insight-block" id="insightBlock">
+      <div class="insight-label">Votre point de vigilance principal</div>
+      <div class="insight-text" id="insightText"></div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-title">Vous venez de voir l'avant-goût.</div>
+      <p class="cta-sub">CLAIR® Cap est un accompagnement complet — trois séances de préparation, un suivi régulier, une disponibilité en cas de crise. Pour les dirigeants qui veulent tenir ce qu'ils ont décidé.</p>
+      <button class="btn-primary" onclick="document.querySelector('.cta-email').scrollIntoView({behavior:'smooth'})">
+        Prendre contact
+      </button>
+      <div class="cta-email">
+        Ou directement : <a href="mailto:daniel.jennepin@fmdg.fr">daniel.jennepin@fmdg.fr</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>CLAIR® — FMDG Conseil — Tiers de confiance décisionnel</footer>
+</div>
+
+<!-- MODAL ACTEUR -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+  <div class="modal">
+    <div class="modal-scroll">
+      <div class="modal-category" id="modalCatLabel"></div>
+      <div class="modal-title">Qui est cet acteur ?</div>
+
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Nom ou rôle</label>
+        <input type="text" id="modalName" placeholder="ex: Marc, mon DAF">
+      </div>
+
+      <div class="form-group" style="margin-bottom:20px">
+        <label>Pourquoi cette posture ? <span style="color:rgba(248,246,242,0.3);font-size:10px;letter-spacing:0;">(optionnel)</span></label>
+        <input type="text" id="modalRaison" placeholder="ex: peur de perdre son influence, prudence réglementaire…">
+      </div>
+
+      <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel-light);margin-bottom:10px;">Sa posture face à votre décision</div>
+      <div class="posture-options" id="postureOptions">
+        <div class="posture-option" data-posture="bruyant_contre" onclick="selectPosture(this)">
+          <span>🔴</span>
+          <div><div>Opposant actif</div><div class="posture-desc">S'exprime ouvertement contre, crée de la friction visible</div></div>
+        </div>
+        <div class="posture-option" data-posture="silencieux_contre" onclick="selectPosture(this)">
+          <span>🟠</span>
+          <div><div>Résistant silencieux</div><div class="posture-desc">Ne dit rien mais agit en souterrain — le plus dangereux</div></div>
+        </div>
+        <div class="posture-option" data-posture="incertain" onclick="selectPosture(this)">
+          <span>🟡</span>
+          <div><div>Incertain</div><div class="posture-desc">Peut basculer dans un sens ou l'autre selon le contexte</div></div>
+        </div>
+        <div class="posture-option" data-posture="neutre" onclick="selectPosture(this)">
+          <span>⚪</span>
+          <div><div>Neutre</div><div class="posture-desc">Indifférent en apparence, risque d'obstacle passif</div></div>
+        </div>
+        <div class="posture-option" data-posture="soutien_sincere" onclick="selectPosture(this)">
+          <span>🟢</span>
+          <div><div>Soutien sincère</div><div class="posture-desc">Soutien désintéressé, sans agenda caché</div></div>
+        </div>
+        <div class="posture-option" data-posture="soutien_interesse" onclick="selectPosture(this)">
+          <span>🟡</span>
+          <div><div>Soutien intéressé</div><div class="posture-desc">Vous soutient mais a ses propres intérêts dans l'issue</div></div>
+        </div>
+      </div>
+
+      <div id="commentSection" style="display:none; margin-top:20px;">
+        <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel-light);margin-bottom:6px;">
+          Comment va-t-il agir ? <span style="color:var(--gold);font-size:9px;letter-spacing:0.05em;">REQUIS</span>
+        </div>
+        <div class="mode-warning" id="modeWarning">Sans savoir comment il va agir, difficile de préparer une réponse. Même une intuition vague vaut mieux que rien.</div>
+        <div class="modes-grid" id="modesGrid">
+          <div class="mode-option" data-mode="reunion" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">🗣️</span>
+            <div class="mode-label">Questionnement en réunion<div class="mode-sub">Interpelle, met en doute devant le collectif</div></div>
+          </div>
+          <div class="mode-option" data-mode="descendant" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">📢</span>
+            <div class="mode-label">Communication descendante<div class="mode-sub">Parle aux équipes ou tiers avant vous — crée le fait accompli</div></div>
+          </div>
+          <div class="mode-option" data-mode="coalition" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">🤫</span>
+            <div class="mode-label">Coalition discrète<div class="mode-sub">Influence en coulisses en interne</div></div>
+          </div>
+          <div class="mode-option" data-mode="reseau" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">🌐</span>
+            <div class="mode-label">Influence réseau<div class="mode-sub">Mobilise son entourage externe ou local</div></div>
+          </div>
+          <div class="mode-option" data-mode="temporisation" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">⏳</span>
+            <div class="mode-label">Temporisation<div class="mode-sub">Multiplie les demandes, ralentit sans s'opposer</div></div>
+          </div>
+          <div class="mode-option" data-mode="affectif" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">💬</span>
+            <div class="mode-label">Pression affective<div class="mode-sub">Joue sur la relation, la loyauté, la culpabilité</div></div>
+          </div>
+          <div class="mode-option" data-mode="analyse" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">📊</span>
+            <div class="mode-label">Surcharge d'analyse<div class="mode-sub">Noie dans les chiffres, réclame toujours plus de données</div></div>
+          </div>
+          <div class="mode-option" data-mode="retrait" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">🚪</span>
+            <div class="mode-label">Retrait<div class="mode-sub">Absence, non-dit, désengagement progressif</div></div>
+          </div>
+          <div class="mode-option" data-mode="escalade" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">⚡</span>
+            <div class="mode-label">Escalade soudaine<div class="mode-sub">Crise ouverte, confrontation brutale</div></div>
+          </div>
+          <div class="mode-option" data-mode="usure" onclick="toggleMode(this)">
+            <div class="mode-check">✓</div><span class="mode-icon">🔄</span>
+            <div class="mode-label">Remise en question répétée<div class="mode-sub">Usure par la répétition, revient sans cesse sur la décision</div></div>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:8px;">
+          <label>Autre <span style="color:rgba(248,246,242,0.3);font-size:10px;letter-spacing:0;">(précisez)</span></label>
+          <input type="text" id="modalAutre" placeholder="Décrivez le mode opératoire…">
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-actions" style="margin-top:16px; padding-top:16px; border-top:1px solid rgba(199,157,67,0.1);">
+      <button class="btn-secondary" onclick="closeModal()">Annuler</button>
+      <button class="btn-primary" onclick="confirmActor()">Ajouter →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──────────────────────────────────────────────
+  let selectedType = '';
+  let actors = [];
+  let currentModalCat = '';
+  let selectedPosture = '';
+  let editingActorId = null;
+
+  const STORAGE_KEY = 'clair_cap_v1';
+
+  const catLabels = {
+    associes: 'Associés / Actionnaires',
+    direction: 'Direction / CODIR',
+    equipe: 'Équipe / Collaborateurs',
+    experts: 'Experts externes',
+    clients: 'Clients clés',
+    partenaires: 'Partenaires / Fournisseurs',
+    proches: 'Proches / Famille',
+    financeurs: 'Financeurs / Investisseurs',
+    autres: 'Autres acteurs'
+  };
+
+  const postureEmoji = {
+    bruyant_contre: '🔴',
+    silencieux_contre: '🟠',
+    incertain: '🟡',
+    neutre: '⚪',
+    soutien_sincere: '🟢',
+    soutien_interesse: '🟡'
+  };
+
+  // ── PERSISTENCE ────────────────────────────────────────
+  function saveState() {
+    const state = {
+      decisionText: document.getElementById('decisionText').value,
+      selectedType,
+      decisionAge: document.getElementById('decisionAge').value,
+      actors,
+      p1: document.getElementById('p1').value,
+      p2: document.getElementById('p2').value,
+      p3: document.getElementById('p3').value,
+      p4: document.getElementById('p4').value,
+    };
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  }
+
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      if (s.decisionText) document.getElementById('decisionText').value = s.decisionText;
+      if (s.selectedType) {
+        selectedType = s.selectedType;
+        document.querySelectorAll('.type-option').forEach(o => {
+          o.classList.toggle('selected', o.dataset.type === selectedType);
+        });
+      }
+      if (s.decisionAge) document.getElementById('decisionAge').value = s.decisionAge;
+      if (s.actors) { actors = s.actors; renderChips(); updateMapCounts(); }
+      if (s.p1) document.getElementById('p1').value = s.p1;
+      if (s.p2) document.getElementById('p2').value = s.p2;
+      if (s.p3) document.getElementById('p3').value = s.p3;
+      if (s.p4) document.getElementById('p4').value = s.p4;
+    } catch(e) {}
+  }
+
+  function clearState() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    document.getElementById('decisionText').value = '';
+    selectedType = '';
+    document.querySelectorAll('.type-option').forEach(o => o.classList.remove('selected'));
+    document.getElementById('decisionAge').value = '';
+    actors = [];
+    renderChips(); updateMapCounts();
+    ['p1','p2','p3','p4'].forEach(id => document.getElementById(id).value = 3);
+  }
+
+  // ── INIT (script en bas de body — DOM déjà disponible) ────────────────
+  (function init() {
+    // Auto-save on inputs
+    document.getElementById('decisionText').addEventListener('input', saveState);
+    document.getElementById('decisionAge').addEventListener('change', saveState);
+    ['p1','p2','p3','p4'].forEach(id => {
+      document.getElementById(id).addEventListener('input', saveState);
+    });
+
+    loadState();
+    renderChips();
+    updateMapCounts();
+  })();
+
+  function selectType(el) {
+    document.querySelectorAll('.type-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedType = el.dataset.type;
+    saveState();
+  }
+
+  // ── NAVIGATION ────────────────────────────────────────
+  function backToStep(n) {
+    document.getElementById('resultsPanel').classList.remove('active');
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goToStep(n) {
+    if (n === 2 && !validateStep1()) return;
+    if (n === 3 && !validateStep2()) return;
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validateStep1() {
+    const txt = document.getElementById('decisionText').value.trim();
+    if (!txt) { alert('Formulez votre décision avant de continuer.'); return false; }
+    if (!selectedType) { alert('Sélectionnez le type de décision.'); return false; }
+    return true;
+  }
+
+  function validateStep2() {
+    if (actors.length === 0) { alert('Ajoutez au moins un acteur de votre écosystème.'); return false; }
+    return true;
+  }
+
+  function updateProgress(step) {
+    document.querySelectorAll('.progress-step').forEach(s => {
+      const n = parseInt(s.dataset.step);
+      s.classList.remove('active', 'done');
+      if (n < step) s.classList.add('done');
+      if (n === step) s.classList.add('active');
+    });
+    ['conn1','conn2','conn3'].forEach((id, i) => {
+      document.getElementById(id).classList.toggle('done', i + 2 <= step);
+    });
+  }
+
+  // ── MODAL ─────────────────────────────────────────────
+  function openModal(cat) {
+    currentModalCat = cat;
+    selectedPosture = '';
+    editingActorId = null;
+    document.getElementById('modalCatLabel').textContent = catLabels[cat] || cat;
+    document.querySelector('.modal-title').textContent = 'Qui est cet acteur ?';
+    document.getElementById('modalName').value = '';
+    document.getElementById('modalRaison').value = '';
+    document.getElementById('modalAutre').value = '';
+    document.querySelectorAll('.posture-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.mode-option').forEach(o => o.classList.remove('selected'));
+    document.getElementById('commentSection').style.display = 'none';
+    document.getElementById('modeWarning').classList.remove('visible');
+    document.getElementById('modalOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('modalName').focus(), 100);
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    currentModalCat = '';
+    selectedPosture = '';
+    editingActorId = null;
+    document.querySelector('.modal-title').textContent = 'Qui est cet acteur ?';
+    document.getElementById('commentSection').style.display = 'none';
+  }
+
+  function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function selectPosture(el) {
+    document.querySelectorAll('.posture-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPosture = el.dataset.posture;
+    // Show comment section only for non-soutien-sincere postures
+    const needsComment = !['soutien_sincere'].includes(selectedPosture);
+    document.getElementById('commentSection').style.display = needsComment ? 'block' : 'none';
+    document.getElementById('modeWarning').classList.remove('visible');
+  }
+
+  function toggleMode(el) {
+    el.classList.toggle('selected');
+    document.getElementById('modeWarning').classList.remove('visible');
+  }
+
+  function confirmActor() {
+    const name = document.getElementById('modalName').value.trim();
+    if (!name) { document.getElementById('modalName').focus(); return; }
+    if (!selectedPosture) { alert('Sélectionnez une posture.'); return; }
+
+    // Validate comment for non-soutien-sincere postures
+    const needsComment = !['soutien_sincere'].includes(selectedPosture);
+    const selectedModes = needsComment
+      ? [...document.querySelectorAll('.mode-option.selected')].map(o => o.dataset.mode)
+      : [];
+    const autre = document.getElementById('modalAutre') ? document.getElementById('modalAutre').value.trim() : '';
+
+    if (needsComment && selectedModes.length === 0 && !autre) {
+      document.getElementById('modeWarning').classList.add('visible');
+      document.getElementById('commentSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      return;
+    }
+
+    const modeLabels = {
+      reunion: 'Questionnement en réunion',
+      descendant: 'Communication descendante',
+      coalition: 'Coalition discrète',
+      reseau: 'Influence réseau',
+      temporisation: 'Temporisation',
+      affectif: 'Pression affective',
+      analyse: 'Surcharge d\'analyse',
+      retrait: 'Retrait / désengagement',
+      escalade: 'Escalade soudaine',
+      usure: 'Remise en question répétée'
+    };
+    const modesDesc = [
+      ...selectedModes.map(m => modeLabels[m] || m),
+      ...(autre ? [autre] : [])
+    ].join(', ');
+
+    const raison = document.getElementById('modalRaison').value.trim();
+    const editCatEl = document.getElementById('editCatSelect');
+    const finalCat = editCatEl ? editCatEl.value : currentModalCat;
+
+    if (editingActorId !== null) {
+      const a = actors.find(a => a.id === editingActorId);
+      if (a) { a.nom = name; a.posture = selectedPosture; a.categorie = finalCat; a.raison = raison; a.modes = modesDesc; }
+    } else {
+      actors.push({ id: Date.now(), nom: name, categorie: finalCat, posture: selectedPosture, raison, modes: modesDesc });
+    }
+    renderChips();
+    updateMapCounts();
+    saveState();
+    closeModal();
+  }
+
+  function removeActor(id) {
+    actors = actors.filter(a => a.id !== id);
+    renderChips();
+    updateMapCounts();
+    saveState();
+  }
+
+  function renderChips() {
+    const container = document.getElementById('actorChips');
+    const empty = document.getElementById('chipsEmpty');
+    if (actors.length === 0) {
+      container.innerHTML = '';
+      if (empty) { container.appendChild(empty); empty.style.display = 'inline'; }
+      else { container.innerHTML = '<span class="actor-chips-empty" id="chipsEmpty">Aucun acteur ajouté — cliquez sur une catégorie ci-dessus</span>'; }
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    container.innerHTML = actors.map(a => `
+      <div class="actor-chip ${a.posture}" title="Cliquer pour modifier">
+        ${postureEmoji[a.posture] || '○'} ${a.nom}
+        <button class="chip-edit" onclick="editActor(${a.id})" title="Modifier">✎</button>
+        <button class="chip-remove" onclick="removeActor(${a.id})">×</button>
+      </div>
+    `).join('');
+  }
+
+  function editActor(id) {
+    const a = actors.find(a => a.id === id);
+    if (!a) return;
+    currentModalCat = a.categorie;
+    selectedPosture = a.posture;
+    editingActorId = id;
+    document.getElementById('modalCatLabel').textContent = catLabels[a.categorie] || a.categorie;
+    document.getElementById('modalName').value = a.nom;
+    document.getElementById('modalRaison').value = a.raison || '';
+    document.getElementById('modalAutre').value = '';
+    // Restore mode selections
+    document.querySelectorAll('.mode-option').forEach(o => o.classList.remove('selected'));
+    if (a.modes) {
+      const modeMap = {
+        'Questionnement en réunion': 'reunion',
+        'Communication descendante': 'descendant',
+        'Coalition discrète': 'coalition',
+        'Influence réseau': 'reseau',
+        'Temporisation': 'temporisation',
+        'Pression affective': 'affectif',
+        "Surcharge d'analyse": 'analyse',
+        'Retrait / désengagement': 'retrait',
+        'Escalade soudaine': 'escalade',
+        'Remise en question répétée': 'usure'
+      };
+      const modesArr = a.modes.split(', ');
+      modesArr.forEach(m => {
+        const key = modeMap[m];
+        if (key) {
+          const el = document.querySelector(`.mode-option[data-mode="${key}"]`);
+          if (el) el.classList.add('selected');
+        } else if (m) {
+          document.getElementById('modalAutre').value = m;
+        }
+      });
+    }
+    const needsComment = !['soutien_sincere'].includes(a.posture);
+    document.getElementById('commentSection').style.display = needsComment ? 'block' : 'none';
+    document.querySelectorAll('.posture-option').forEach(o => {
+      o.classList.toggle('selected', o.dataset.posture === a.posture);
+    });
+    // Update modal title and button for edit mode
+    document.querySelector('.modal-title').textContent = 'Modifier cet acteur';
+    document.getElementById('modalCatLabel').innerHTML = `
+      ${catLabels[a.categorie] || a.categorie} — 
+      <select id="editCatSelect" style="background:transparent;border:none;color:var(--gold);font-size:11px;letter-spacing:0.15em;cursor:pointer;outline:none;">
+        ${Object.entries(catLabels).map(([k,v]) => `<option value="${k}" ${k===a.categorie?'selected':''}>${v}</option>`).join('')}
+      </select>
+    `;
+    document.getElementById('modalOverlay').classList.add('open');
+    setTimeout(() => document.getElementById('modalName').focus(), 100);
+  }
+
+  function updateMapCounts() {
+    Object.keys(catLabels).forEach(cat => {
+      const count = actors.filter(a => a.categorie === cat).length;
+      const el = document.getElementById('count-' + cat);
+      const catEl = document.querySelector(`.map-category[data-cat="${cat}"]`);
+      if (el) { el.textContent = count; }
+      if (catEl) catEl.classList.toggle('has-actors', count > 0);
+    });
+  }
+
+  // ── MATRICE SI-ALORS ───────────────────────────────────────────────────
+  const MATRICE = {
+    coalition: {
+      preventif: {
+        doux: "Si tu sens que X commence à prendre ses distances sans te dire pourquoi, alors vois-le seul — avant qu'il parle aux autres. Pose les enjeux clairement, avec les mots justes. La solidarité n'est pas une option, c'est une condition. Un front divisé donne raison à ceux qui doutent.",
+        direct: "Si tu sens que X commence à prendre ses distances, alors vois-le seul et vite — avant que la coalition se structure. Dis-lui clairement : la solidarité n'est pas optionnelle. Un front divisé donne raison à ceux qui doutent."
+      },
+      curatif: {
+        doux: "Si la coalition est déjà en marche et que le doute circule, alors ne contre-attaque pas en réunion. Isole chaque conversation. Commence par X — pas par les autres. Va le voir. Pas pour le reconvaincre. Pour comprendre ce qu'il a dit, à qui, et pourquoi maintenant. La réponse est dans cette conversation-là.",
+        direct: "Si la coalition est déjà en marche, alors ne cherche pas à reconquérir le groupe. Va voir X seul. Pas pour le convaincre — pour comprendre ce qu'il a dit, à qui, et pourquoi maintenant. C'est là que ça se règle."
+      }
+    },
+    affectif: {
+      preventif: {
+        doux: "Si tu sens que X commence à jouer sur votre histoire commune pour freiner ta décision, alors vois-le avant qu'il l'exprime en public. Pas pour le convaincre — pour comprendre ce qu'il a peur de perdre. La relation ? Son statut ? Son influence sur toi ? La réponse change tout à ce que tu dois lui dire.",
+        direct: "Si X commence à utiliser votre relation pour peser sur ta décision, alors devance-le. Vois-le seul. Ce qu'il protège — la relation, son statut, son rôle — détermine ta réponse. Identifie-le avant d'entrer dans la conversation."
+      },
+      curatif: {
+        doux: "Si X a déjà mis la pression affective sur la table, alors ne réponds pas sur le fond tout de suite. Pose-lui trois options honnêtes : tu es avec moi et on trouve comment préserver ce qui compte pour toi dans cette décision — tu n'es pas convaincu mais tu joues le jeu collectif le temps qu'on mesure les résultats — ou la rupture est déjà consommée dans ta tête et on parle de ça d'abord. Je te laisse choisir.",
+        direct: "Si X a sorti la carte affective, alors pose-lui trois options claires : avec moi et on préserve ce qui compte pour toi — pas convaincu mais tu joues le jeu collectif — ou la rupture est déjà faite dans ta tête et on en parle. Je te laisse choisir."
+      }
+    },
+    temporisation: {
+      preventif: {
+        doux: "Si tu sens que X commence à multiplier les questions sans jamais aller vers une position claire, alors vois-le seul. Pas pour le convaincre sur le fond — il sait que la décision est juste. Travaille le timing avec lui. Ce qu'il résiste, c'est le moment, pas la direction.",
+        direct: "Si X multiplie les questions sans jamais conclure, alors vois-le seul. Ce n'est pas le fond qu'il conteste — c'est le moment. Travaille ça avec lui, directement."
+      },
+      curatif: {
+        doux: "Si la temporisation est déjà installée et que les demandes s'accumulent, alors pose une limite claire : voilà ce qu'on sait, voilà ce qu'on ne saura jamais avec certitude, voilà la date à partir de laquelle attendre coûte plus cher qu'agir. L'information parfaite n'existe pas — et X le sait mieux que quiconque. Maintenant j'ai besoin de toi dans ce mouvement. On y va ensemble.",
+        direct: "Si les demandes s'accumulent sans fin, alors pose une date. Voilà ce qu'on sait, voilà ce qu'on ne saura jamais. Attendre davantage coûte plus cher qu'agir. J'ai besoin de toi dans ce mouvement. On y va ensemble."
+      }
+    },
+    usure: {
+      preventif: {
+        doux: "Si tu anticipes que la décision va être remise en question avant même d'être appliquée, alors dis-le clairement dès l'annonce : la décision parfaite n'existe pas. Ne pas décider était la seule vraie erreur. C'est fait, c'est acté, on avance. Les questions sur le comment sont les bienvenues — sur le si, la discussion est fermée.",
+        direct: "Annonce-le d'entrée : la décision parfaite n'existe pas. Ne pas décider était la vraie erreur. C'est acté. Le comment est discutable — le si ne l'est plus."
+      },
+      curatif: {
+        individu: {
+          doux: "Si un seul acteur revient sans cesse sur la décision, alors vois-le seul. Dis-lui ce que tu observes : tu ralentis le groupe, pas la décision. La décision tient. Ce que je te demande maintenant c'est de monter dans le train — il est parti. S'il te plaît. Selon le ton que tu choisis ce jour-là, c'est une demande ou une injonction. Toi seul sais lequel s'impose.",
+          direct: "Si un acteur revient encore, alors vois-le seul. Tu ralentis le groupe, pas la décision. Monte dans le train — il est parti. S'il te plaît. C'est une demande ou une injonction selon comment tu entres dans la pièce ce jour-là."
+        },
+        groupe: {
+          doux: "Si c'est le groupe qui s'use, alors ne cherche pas à reconvaincre tout le monde — tu n'as pas ce temps. Identifie deux ou trois personnes dont la voix compte pour les autres. Travaille-les séparément, factuellement. Pas pour créer un camp — pour recréer un centre de gravité. C'est long, c'est incertain. Mais c'est le seul chemin.",
+          direct: "Si c'est le groupe, alors oublie le groupe. Identifie deux ou trois voix qui comptent. Travaille-les séparément, sur les faits. Pas un camp — un centre de gravité. C'est le seul chemin."
+        }
+      }
+    },
+    reunion: {
+      preventif: {
+        doux: "Si tu anticipes des questions en réunion sur ta décision, alors crée l'espace avant qu'il soit pris. Dis-le explicitement : toutes les questions sont les bienvenues, maintenant. Mieux vaut les entendre ici que les voir circuler ailleurs. Quelqu'un qui pose une question devant tout le monde te fait confiance — réponds-lui à la hauteur de ça.",
+        direct: "Crée l'espace avant qu'il soit pris : toutes les questions maintenant. Mieux vaut les entendre ici. Quelqu'un qui interroge en public te fait confiance — sois à la hauteur."
+      },
+      curatif: {
+        doux: "Si quelqu'un interpelle devant le groupe, alors réponds sincèrement — sur ce que tu sais et sur ce que tu ne sais pas encore. Ne pas avoir toutes les réponses n'affaiblit pas ta décision. Prétendre les avoir, si. Ce que le groupe retient ce jour-là, c'est ta façon de tenir le cap — pas ta perfection.",
+        direct: "Si quelqu'un interpelle en réunion, réponds franchement — sur ce que tu sais et ce que tu ne sais pas. L'incertitude assumée est plus solide que la certitude feinte. Le groupe retient ta façon de tenir le cap, pas ta perfection."
+      }
+    },
+    descendant: {
+      preventif: {
+        doux: "Si tu prépares une décision sensible, alors garde le cercle d'information restreint — mais identifie ceux qui ont besoin de se sentir dans la confidence. Pour eux, une conversation en amont suffit : pas pour décider ensemble, mais pour qu'ils ne l'apprennent pas comme tout le monde. La frustration qui fait parler, c'est rarement le désaccord — c'est de se sentir exclu.",
+        direct: "Garde le cercle restreint — mais repère ceux qui ont besoin de se sentir dans la confidence. Une conversation en amont leur suffit. Ce qui fait parler, ce n'est pas le désaccord. C'est de se sentir exclu."
+      },
+      curatif: {
+        doux: "Si X a déjà parlé aux équipes avant toi, alors vois-le seul et dis-lui clairement : je ne suis pas content. Ce qu'il a dit n'est pas ta décision — c'est sa version de ta décision. La prochaine fois il vient te voir d'abord. Maintenant on répare ensemble — toi et lui — ce qui circule.",
+        direct: "Si X a devancé l'annonce, alors vois-le seul : je ne suis pas content. Ce qu'il a dit c'est sa version, pas la mienne. La prochaine fois il vient me voir d'abord. Maintenant on répare ça ensemble."
+      }
+    },
+    reseau: {
+      preventif: {
+        doux: "Si tu anticipes qu'un acteur va mobiliser son réseau externe, alors ne cherche pas à contrôler ce qui va circuler — tu n'en as pas les moyens. Travaille ta propre présence : les bons interlocuteurs dans ton réseau doivent entendre ta version avant la sienne. Pas un communiqué — une conversation.",
+        direct: "Tu ne peux pas contrôler ce qui va circuler. Assure-toi que les bonnes personnes de ton réseau entendent ta version avant la sienne. Pas un communiqué — une conversation directe."
+      },
+      curatif: {
+        doux: "Si la pression indirecte est déjà là et que ça circule dans le réseau, alors résiste à l'envie d'y répondre point par point. Identifie deux ou trois relais de confiance. Pas pour contre-attaquer — pour que la vérité ait au moins autant de voix que le bruit. Le reste, tu ne peux pas le contrôler. Et vouloir tout contrôler te coûtera plus cher que la décision elle-même.",
+        direct: "Si ça circule déjà, n'essaie pas de répondre à tout. Identifie deux ou trois relais de confiance. Donne-leur ta version. Le reste ne se contrôle pas — et vouloir tout contrôler coûte plus cher que la décision."
+      }
+    },
+    retrait: {
+      preventif: {
+        doux: "Le désengagement ne commence pas le jour où tu le vois. Il commence bien avant — une décision incomprise, une remarque non entendue, un sentiment de ne plus compter. Le préventif n'est pas une technique. C'est une attention quotidienne à ceux qui font tourner ce que tu as décidé. Prise par l'opérationnel, cette attention-là est toujours la première à disparaître. Et c'est toujours la plus chère à négliger.",
+        direct: "Le désengagement arrive bien avant que tu le voies. Une décision incomprise, une remarque ignorée, un sentiment de ne plus compter. L'attention quotidienne aux gens clés — c'est ça le préventif. Et c'est toujours la première chose qu'on sacrifie à l'opérationnel."
+      },
+      curatif: {
+        doux: "Si le désengagement est là, alors commence par comprendre depuis quand et pourquoi — avant de chercher à remotiver. Ce que tu vas entendre sera peut-être difficile. Donne-lui le temps de le dire. Selon ce que tu entends : retrouver ensemble ce qui avait du sens, repositionner sur un autre rôle, ou accompagner une sortie digne. Les trois sont des issues valables. Une seule ne l'est pas — faire comme si tu n'avais pas vu.",
+        direct: "Si le désengagement est installé, comprends d'abord depuis quand et pourquoi. Trois issues possibles : retrouver ce qui avait du sens, changer de rôle, ou une sortie digne. Les trois sont valables. Une seule ne l'est pas : faire comme si tu n'avais pas vu."
+      }
+    },
+    analyse: {
+      preventif: {
+        doux: "Construis ton propre corpus avant l'annonce — pas pour tout démontrer, mais pour tenir sous le feu des questions. Tu n'auras pas toutes les réponses. Personne ne les a. Mais 80% des données suffisent pour décider. Le reste est du perfectionnisme qui coûte plus cher qu'il ne rapporte.",
+        direct: "Prépare ton corpus — pas pour tout démontrer, pour tenir. 80% des données suffisent pour décider. Le reste est du perfectionnisme."
+      },
+      curatif: {
+        doux: "Si l'analyse s'accumule sans fin, alors laisse-le aller au bout. Puis pose une seule question : et toi, qu'est-ce que tu préconises ? Le silence ou le je-ne-sais-pas te redonne la main — bon, alors on fait comme j'ai dit. S'il a une réponse, mesure-la honnêtement. Si elle est pertinente, enrichis-toi en. Sinon : on pourrait encore chercher, mais l'énergie dépensée ne changera pas l'essentiel. Je suis à 80% — c'est suffisant pour avancer.",
+        direct: "Laisse-le finir. Puis : et toi, tu préconises quoi ? Le silence te redonne la main. S'il a une réponse, mesure-la. Si elle vaut, prends-la. Sinon : à 80% des données on avance — l'information parfaite n'existe pas."
+      }
+    },
+    escalade: {
+      preventif: {
+        doux: "Ces profils-là, en général tu les connais. Si tu en as un dans ton écosystème, anticipe — pas la décision, mais la conversation. Vois-le avant l'annonce. Donne-lui l'espace de réagir en privé avant qu'il le fasse en public. Une explosion en tête-à-tête se gère. Devant le groupe, elle peut laisser des traces — ou finir par lasser tout le monde et le disqualifier seul.",
+        direct: "Tu le connais. Vois-le avant l'annonce — donne-lui l'espace d'exploser en privé. Une explosion en tête-à-tête se gère. Devant le groupe, elle peut faire des dégâts ou finir par le disqualifier seul."
+      },
+      curatif: {
+        doux: "Si l'explosion arrive, laisse-le aller au bout. Ne coupe pas, ne réplique pas — il cherche le KO technique, pas le dialogue. Quand il a fini, reprends la main calmement : j'ai entendu, on ne peut pas plaire à tout le monde, c'est comme ça. Puis cherche qui est derrière — une explosion de cette nature est rarement solitaire. Et si la frontière du respect a été franchie, recadrage entre quatre yeux, sans témoin, sans délai.",
+        direct: "Laisse-le finir. Ne réplique pas — il cherche le KO. Quand c'est terminé, reprends calmement : j'ai entendu, on ne peut pas plaire à tout le monde, c'est comme ça. Puis cherche qui est derrière. Et si le respect a été franchi — recadrage seul à seul, sans délai."
+      }
+    }
+  };
+
+  // ── VARIANTES PAR CATÉGORIE (modes relationnels) ──────────────────────
+  // Surcharge la MATRICE pour les combinaisons mode × catégorie les plus distinctes
+  const CAT_VARIANTS = {
+    affectif: {
+      associes: {
+        preventif: {
+          doux: "Si tu sens que ton associé commence à mettre votre histoire commune dans la balance, alors vois-le avant que ça sorte. Ce que vous avez construit ensemble est réel — et c'est précisément pour ça qu'il faut en parler en tête-à-tête. Pas en réunion, pas par écrit. Lui directement. Ce qu'il protège — sa place, son rôle, ce que cette décision change pour lui — ça mérite une vraie conversation.",
+          direct: "Si ton associé joue la carte de l'histoire commune, alors devance-le. Vois-le seul. Ce que vous avez construit est réel — c'est pour ça qu'il mérite une vraie conversation avant que ça devienne un rapport de force."
+        },
+        curatif: {
+          doux: "Si la pression affective est déjà sur la table entre vous, alors ne réponds pas sur le fond. Pose trois options honnêtes : on trouve ensemble comment cette décision préserve ce qui compte pour toi dans notre association — tu joues le jeu le temps de mesurer les résultats — ou la rupture est déjà consommée dans ta tête et on en parle franchement. Je te laisse choisir. Entre associés, on se doit cette clarté-là.",
+          direct: "Si ton associé a sorti la carte affective, pose trois options : avec moi et on préserve ce qui compte pour toi — tu joues le jeu collectif le temps qu'on mesure — ou la rupture est déjà faite dans ta tête et on en parle. Entre associés on se doit cette clarté. Je te laisse choisir."
+        }
+      },
+      proches: {
+        preventif: {
+          doux: "Si tu sens que ta famille commence à s'inquiéter de l'impact de ta décision sur votre vie personnelle, alors ne minimise pas. Ce qu'ils expriment, c'est souvent de la peur — pas du désaccord. Sécurité, stabilité, ce que ça change pour eux concrètement. Prends le temps de l'entendre avant que ça devienne de la pression.",
+          direct: "Si ta famille s'inquiète, prends-le au sérieux. Ce n'est pas un désaccord — c'est de la peur. Sécurité, stabilité, impact concret sur leur vie. Entends ça avant que ça devienne une opposition."
+        },
+        curatif: {
+          doux: "Si la pression affective vient de tes proches, alors ne défends pas ta décision — explique ce que tu as fait pour protéger ce qui compte pour eux. Ce qu'ils ont besoin d'entendre, c'est que tu les as inclus dans ta réflexion, même si la décision t'appartient. Et si la peur est légitime, dis-le. On ne peut pas plaire à tout le monde, mais on peut rassurer ceux qui comptent.",
+          direct: "Si tes proches mettent la pression, ne défends pas ta décision. Montre-leur qu'ils ont été dans ta réflexion. Ce qu'ils veulent entendre : tu les as pris en compte. Si la peur est légitime, dis-le. Mais la décision reste la tienne."
+        }
+      },
+      experts: {
+        preventif: {
+          doux: "Si tu sens que ton expert — avocat, comptable, banquier — commence à jouer sur la relation de confiance pour infléchir ta décision, alors distingue deux choses : son conseil professionnel et sa position personnelle. Tu lui dois d'écouter le premier. Tu ne lui dois pas de suivre la seconde. Vois-le et pose la question directement : tu me parles en tant que conseil ou en tant que partie prenante ?",
+          direct: "Si ton expert mélange son conseil et sa position personnelle, alors distingue les deux. Son expertise mérite d'être entendue. Son opinion sur ta décision, c'est autre chose. Pose-lui la question directement : tu me parles en conseil ou en partie prenante ?"
+        },
+        curatif: {
+          doux: "Si ton expert a déjà mis la pression affective sur la table, alors recadre calmement : notre relation de confiance est précieuse — c'est pour ça que je t'en parle directement. Mais cette décision ne relève pas de ton mandat de conseil. Je prends note de ta position. La décision reste la mienne.",
+          direct: "Si ton expert a sorti la carte affective, recadre : notre relation est précieuse — mais cette décision ne relève pas de ton mandat. Je prends note de ta position. La décision reste la mienne."
+        }
+      },
+      direction: {
+        preventif: {
+          doux: "Si tu sens qu'un membre de ta direction commence à jouer sur votre relation pour freiner la décision, alors vois-le avant qu'il en parle aux autres. Ce qu'il protège — son périmètre, son équipe, son influence — est probablement légitime. Mais c'est à toi de l'entendre, pas à lui de te l'imposer.",
+          direct: "Si un membre de ta direction utilise votre relation pour peser sur la décision, devance-le. Ce qu'il protège est peut-être légitime — mais c'est à toi de l'entendre, pas à lui de te l'imposer."
+        },
+        curatif: {
+          doux: "Si la pression affective vient de ta direction, alors pose trois options : il est avec toi et on trouve comment intégrer ses enjeux — il n'est pas convaincu mais il joue le jeu managérial le temps qu'on mesure — ou il n'est plus en alignement et on en parle franchement. Un membre de la direction qui envoie des signaux mixtes coûte plus cher que celui qui dit clairement qu'il n'est pas d'accord. Je te laisse choisir.",
+          direct: "Si la pression vient de ta direction, pose trois options : avec toi et on intègre ses enjeux — il joue le jeu managérial le temps qu'on mesure — ou il n'est plus en alignement et on en parle. Un signal mixte dans la direction coûte très cher. Je te laisse choisir."
+        }
+      }
+    },
+    coalition: {
+      associes: {
+        preventif: {
+          doux: "Si tu sens que ton associé commence à parler aux autres avant de te parler, alors vois-le seul et vite. Entre associés, les coalitions discrètes sont les plus destructrices — elles fracturent ce qui prend des années à construire. Pose la question directement : qu'est-ce qui te retient de m'en parler à moi d'abord ?",
+          direct: "Si ton associé parle aux autres avant de te parler, vois-le seul immédiatement. Entre associés, une coalition discrète fracture tout. Pose la question : qu'est-ce qui t'empêche de me parler à moi d'abord ?"
+        },
+        curatif: {
+          doux: "Si la coalition est déjà en marche entre tes associés, alors ne cherche pas à reconquérir le groupe. Va voir ton associé seul. Pas pour lui faire la leçon — pour comprendre ce qui s'est passé et ce qu'il a dit. La décision sur la suite se prend après cette conversation, pas avant.",
+          direct: "Si la coalition associés est en marche, va voir le meneur seul. Pas pour le reconvaincre — pour comprendre ce qui s'est dit et à qui. La suite se décide après cette conversation."
+        }
+      },
+      direction: {
+        preventif: {
+          doux: "Si tu sens qu'un membre de ta direction commence à influencer les autres en coulisses, alors c'est un signal managérial fort. Pas forcément malveillant — souvent c'est de l'inquiétude qui n'a pas trouvé d'espace pour s'exprimer. Crée cet espace avant que la coalition se structure.",
+          direct: "Si un membre de ta direction travaille en coulisses, c'est un signal managérial fort. Crée l'espace pour que l'inquiétude s'exprime directement — avant que ça se structure."
+        },
+        curatif: {
+          doux: "Si la coalition dans ta direction est déjà structurée, alors commence par identifier qui en est la source. Pas pour sanctionner — pour comprendre quelle inquiétude non traitée l'a générée. C'est souvent là que tu trouveras ce qui reste à adresser.",
+          direct: "Si ta direction s'est coalisée, identifie la source. Pas pour sanctionner — pour trouver l'inquiétude non traitée qui l'a créée. C'est là que ça se règle."
+        }
+      },
+      equipe: {
+        preventif: {
+          doux: "Si tu sens que des membres de ton équipe commencent à se parler entre eux plutôt qu'à toi, alors ne tarde pas. Une coalition dans l'équipe se forme vite et se défait lentement. La meilleure réponse préventive : créer un espace d'expression collectif avant qu'ils n'en créent un sans toi.",
+          direct: "Si ton équipe commence à se parler entre elle plutôt qu'à toi, ne tarde pas. Une coalition d'équipe se forme vite. Crée un espace d'expression collectif avant qu'ils en créent un sans toi."
+        },
+        curatif: {
+          doux: "Si la coalition est déjà en place dans ton équipe, alors ne cherche pas à la dissoudre de force — tu renforcerais le sentiment d'injustice. Identifie les deux ou trois personnes qui la structurent. Vois-les séparément, pas ensemble. Écoute avant de parler.",
+          direct: "Si ton équipe s'est coalisée, ne cherche pas à la dissoudre de force. Identifie les deux ou trois qui la structurent. Vois-les séparément. Écoute d'abord."
+        }
+      }
+    },
+    retrait: {
+      direction: {
+        preventif: {
+          doux: "Un membre de ta direction qui se désengage envoie un signal visible à toute l'organisation. Le préventif n'est pas de le surveiller — c'est de t'assurer qu'il a un espace pour dire ce qui ne va pas avant que son désengagement devienne le commentaire non-dit sur ta décision.",
+          direct: "Un membre de direction qui se désengage est visible de toute l'organisation. Assure-toi qu'il a un espace pour dire ce qui ne va pas — avant que son retrait devienne le commentaire implicite sur ta décision."
+        },
+        curatif: {
+          doux: "Si le désengagement d'un membre de ta direction est visible, alors agis vite — pas pour le sauver à tout prix, mais parce que son retrait impacte le collectif. Vois-le seul. Comprends depuis quand et pourquoi. Selon ce que tu entends : repositionner, recadrer, ou organiser une sortie propre. Les trois sont des issues valables. Mais le laisser en poste sans règle le problème n'en est pas une.",
+          direct: "Si un membre de ta direction se désengage visiblement, agis vite. Son retrait impacte tout le collectif. Vois-le seul, comprends depuis quand. Trois options : repositionner, recadrer, sortie propre. Laisser en poste sans régler n'est pas une option."
+        }
+      },
+      equipe: {
+        preventif: {
+          doux: "Le désengagement dans l'équipe est rarement individuel. Il annonce souvent un mouvement plus large. Le préventif c'est l'attention au quotidien — les signaux faibles, les silences qui changent, les personnes qui ne prennent plus la parole. Ce que tu vas négliger sous la pression de l'opérationnel.",
+          direct: "Le désengagement d'équipe est rarement seul. C'est souvent le début d'un mouvement. Le préventif c'est l'attention aux signaux faibles — les silences qui changent, ceux qui ne prennent plus la parole. Ce qu'on sacrifie toujours en premier sous la pression."
+        },
+        curatif: {
+          doux: "Si le désengagement est visible dans ton équipe, alors commence par comprendre si c'est individuel ou collectif. Pas la même réponse. Individuel : une conversation directe, en tête-à-tête. Collectif : un espace d'expression, sans agenda caché, pour entendre ce qui ne se dit plus. Dans les deux cas — ne pas voir n'a jamais rien arrangé.",
+          direct: "Si ton équipe se désengage, distingue d'abord : individuel ou collectif. Pas la même réponse. Individuel : tête-à-tête direct. Collectif : espace d'expression sans agenda. Dans les deux cas — faire comme si tu n'as pas vu ne règle rien."
+        }
+      }
+    }
+  };
+
+  // ── PROFIL DIRIGEANT → ton ─────────────────────────────────────────────
+  function getTon() {
+    const p1 = parseInt(document.getElementById('p1').value);
+    const p2 = parseInt(document.getElementById('p2').value);
+    if (p1 <= 2 || p2 >= 4) return 'doux';
+    return 'direct';
+  }
+
+  // ── VIGILANCE par profil ────────────────────────────────────────────────
+  function getVigilance() {
+    const p1 = parseInt(document.getElementById('p1').value);
+    const p2 = parseInt(document.getElementById('p2').value);
+    const p3 = parseInt(document.getElementById('p3').value);
+    const p4 = parseInt(document.getElementById('p4').value);
+    if (p1 <= 2 && p2 >= 4)
+      return "Votre plus grand risque n'est pas qu'on vous convainque — c'est que vous vous laissiez user par la répétition des doutes sans jamais les nommer.";
+    if (p4 >= 4)
+      return "Vous savez attendre. Mais dans cette décision, attendre trop longtemps coûtera plus cher qu'une imperfection assumée.";
+    if (p1 >= 4 && p3 <= 2)
+      return "Votre réflexe est d'aller vite et d'aller au front. Veillez à ne pas confondre vitesse et cap — les deux ne vont pas toujours ensemble.";
+    if (p2 <= 2)
+      return "Vous êtes peu influençable — c'est une force. Veillez à ce que cette indépendance ne devienne pas de l'isolement sur une décision qui a besoin d'embarquer les autres.";
+    return "Le plus grand risque n'est pas l'erreur de décision. C'est de perdre le fil de pourquoi vous avez décidé quand la pression monte.";
+  }
+
+  // ── GENERATION STATIQUE ────────────────────────────────────────────────
+  function generateResults() {
+    console.log('generateResults called, actors:', actors.length, 'selectedType:', selectedType);
+    if (!validateStep1()) { console.log('Step1 validation failed'); return; }
+    if (!validateStep2()) { console.log('Step2 validation failed'); return; }
+
+    const ton = getTon();
+    console.log('Ton:', ton);
+    const sialors = [];
+
+    const modeMap = {
+      'Questionnement en réunion': 'reunion',
+      'Communication descendante': 'descendant',
+      'Coalition discrète': 'coalition',
+      'Influence réseau': 'reseau',
+      'Temporisation': 'temporisation',
+      'Pression affective': 'affectif',
+      "Surcharge d'analyse": 'analyse',
+      'Retrait / désengagement': 'retrait',
+      'Escalade soudaine': 'escalade',
+      'Remise en question répétée': 'usure'
+    };
+
+    // Contexte de catégorie pour personnaliser la condition
+    const catContext = {
+      associes: "en tant qu'associé",
+      direction: "depuis sa position dans la direction",
+      equipe: "au sein de l'équipe",
+      experts: "en s'appuyant sur son expertise",
+      clients: "en tant que client clé",
+      partenaires: "depuis sa position de partenaire",
+      proches: "sur le plan personnel",
+      financeurs: "en tant que financeur",
+      autres: ""
+    };
+
+    actors.filter(a => a.posture !== 'soutien_sincere').forEach(a => {
+      // Collecter tous les modes cochés
+      const modesArr = a.modes ? a.modes.split(', ').filter(m => m.trim()) : [];
+      const modeKeys = modesArr.map(m => modeMap[m]).filter(Boolean);
+
+      // Si aucun mode reconnu, fallback usure
+      if (modeKeys.length === 0) modeKeys.push('usure');
+
+      const ctx = catContext[a.categorie] || '';
+      const raisonStr = a.raison ? ` (${a.raison})` : '';
+      const ctxStr = ctx ? ` — ${ctx}${raisonStr}` : raisonStr;
+
+      // Un bloc de réponse par mode
+      const blocs = modeKeys.map(modeKey => {
+        // Chercher variante par catégorie d'abord, fallback sur MATRICE générique
+        const catVariant = CAT_VARIANTS[modeKey] && CAT_VARIANTS[modeKey][a.categorie];
+        const entree = catVariant || MATRICE[modeKey];
+        if (!entree) return null;
+
+        let preventif, curatif;
+        if (modeKey === 'usure' && !catVariant) {
+          const isGroupe = ['direction', 'equipe'].includes(a.categorie);
+          const subKey = isGroupe ? 'groupe' : 'individu';
+          preventif = entree.preventif[ton];
+          curatif = entree.curatif[subKey][ton];
+        } else {
+          preventif = entree.preventif[ton];
+          curatif = entree.curatif[ton];
+        }
+
+        // Remplacer X par le vrai prénom
+        const nom = a.nom;
+        preventif = preventif.replace(/\bX\b/g, nom);
+        curatif = curatif.replace(/\bX\b/g, nom);
+
+        const modeLabel = modesArr.find(m => modeMap[m] === modeKey) || modeKey;
+        return { modeLabel, preventif, curatif };
+      }).filter(Boolean);
+
+      if (blocs.length === 0) return;
+
+      // Construire la condition enrichie par catégorie
+      const modesDesc = modeKeys.map(k => modesArr.find(m => modeMap[m] === k) || k).join(' + ');
+      const condition = `${a.nom}${ctxStr} — via : ${modesDesc}`;
+
+      sialors.push({ acteur: a.nom, condition, blocs });
+    });
+
+    console.log('sialors built:', sialors.length);
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    updateProgress(4);
+    displayResults({ sialors, vigilance: getVigilance() });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function getProfileDesc(id, labels) {
+    const val = parseInt(document.getElementById(id).value);
+    return labels[val - 1] || labels[2];
+  }
+
+  function displayResults(result) {
+    document.getElementById('resultsPanel').classList.add('active');
+
+    const decision = document.getElementById('decisionText').value.trim();
+    document.getElementById('resultsDecisionLabel').textContent = '\u00ab\u00a0' + decision + '\u00a0\u00bb';
+
+    const container = document.getElementById('sialorsContainer');
+    container.innerHTML = '';
+
+    if (result.sialors && result.sialors.length > 0) {
+      result.sialors.forEach(sa => {
+        const card = document.createElement('div');
+        card.className = 'sialors-card';
+
+        // Blocs multi-modes
+        const blocsHTML = (sa.blocs || []).map((bloc, i) => `
+          ${sa.blocs.length > 1 ? `<div style="font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin:${i>0?'28px':'-4px'} 0 12px;padding-bottom:8px;border-bottom:1px solid rgba(199,157,67,0.25);">${bloc.modeLabel}</div>` : ''}
+          <div style="margin-bottom:12px;">
+            <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--steel-light);margin-bottom:5px;">Préventif</div>
+            <div class="sialors-response">${bloc.preventif}</div>
+          </div>
+          <div style="margin-bottom:${i < sa.blocs.length-1 ? '0' : '4px'};">
+            <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.8;margin-bottom:5px;">Curatif</div>
+            <div class="sialors-response">${bloc.curatif}</div>
+          </div>
+          ${i < sa.blocs.length-1 ? '<hr style="border:none;border-top:1px solid rgba(199,157,67,0.1);margin:20px 0;">' : ''}
+        `).join('');
+
+        card.innerHTML = `
+          <div class="sialors-actor">${sa.acteur}</div>
+          <div class="sialors-condition">${sa.condition.replace(/^[^—]+— /, '').replace(/^via : /, 'via ')}</div>
+          ${blocsHTML}
+        `;
+        container.appendChild(card);
+      });
+    } else {
+      container.innerHTML = '<p style="color:rgba(248,246,242,0.5);font-style:italic;">Aucun acteur résistant identifié — vérifiez les modes opératoires saisis.</p>';
+    }
+
+    document.getElementById('insightText').textContent = result.vigilance || '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── INIT ──────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    loadState();
+    renderChips();
+    updateMapCounts();
+  });
+</script>
+</body>
+</html>
