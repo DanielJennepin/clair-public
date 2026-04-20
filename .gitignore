@@ -1,0 +1,22 @@
+# === Dossiers internes à ne pas publier ===
+Images/
+clair-editorial-assets/
+.vscode/
+__pycache__/
+
+# === Fichiers outils/scripts internes ===
+clair-og-generator.html
+inject_backlog_initial.py
+git-save-public.bat
+*.lnk
+*.bat.txt
+
+# === Fichiers système ===
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# === Backups éventuels ===
+*.bak
+*.old
+*.tmp

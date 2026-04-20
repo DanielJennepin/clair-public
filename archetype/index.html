@@ -3,8 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEiklEQVR4nMWXW2wUVRjHf2dm2t3tbpfaQqBCC6XlElSECEFiouAtBg0aLqK+iCa++aoPRn0x0RAT4otvhAiJGh+QoIaIFww2EDXSBLBAAwilQG+U7nZ3u7vdmfP5MLPDXrqlQCv/5Gxm9pyc//+b+f7ffAcRUXgQka0iclhE4iKiZeqgvT0Pi8jWAj6FiBgiUiUie6aQ8FbY43EaeSV7vQlbRJxJb6O1iHZEFwzRWiZ4eI7HISKyF0CJyCZgH2ADFhNCENEAKGVOvNRfq1BKAapwMs+1WYlIO/AYIIAx0WalpHYmTi49jGNnfCIzEKEqWIdZVVO2R4EI7d0cVSKSBMIV4xCNUq4uJzdK/FoHQxePkOg7STY54O6lTBQK0TYiDoYVIFS3gBn3r+S+prXUNj6MYYz7cFNKRKQSudYawzBw7Az9nd/Sd2Y/iYGzBCKzaWhZR93cVdTUt2AGoigUjp0hm+glOXiaG93HiF/rQCmD6OxltK17n/DMxYiIHxC4OTCugDx5auAUF9o/JdbXiRghFq7eTuNDL2MFopV0+0j0n+Ly37u53HmQNdu+oH7+WkSc4lc5XqrajmuEg78ek/UbNsmTzz0vL2x5Tc50Hi8wgO0NL/MLHeHYnhtEtNZy+OfvJZFI+PeFKBPgeOR/dXRK65rN0rr2FWlatVUOHelwxdm5iWxWBK1v7eiirBcRlFIkkqO8+9HnmKaBM5Zm+5anePbxlTiOjWlalFiqIvLvWmsH1wXlKBKgtUYpxdf7f6LrQjfBQDWhUJA3Xt1Yljy3A8MwK4o2ShfajsOBH38nEg6RTKZZ8eBiWpobvfk7EzChuPyFGz2c+7eH85euEAoGyI6N8cCSFn9+OuALyJvxUk8v6XTWj3bunFnTQlwmIJ8kiWQK7dd7RW2kYpGcagF5KP9XREiNpv8vAS5xfV0tpmH6prnadx2oZKIpFOB+MqF1wTwi4RC27WBZFl3nuwEwp8EBRQIMQyEiLGhqZGnbfEbTGcI1QU50nmPg+jAAuvJ36+4FwM1CtO3Fp8lksgQD1QwODfPNgV9QSk2LFYsLkWkiIry04QlWr1jGjdgI9XW17P7qAFd7+7FM0yurtw/Rzk2vVxKQz/zqqip2fPg2kXANqYxmMDbGW+/s5MZIFsMw0dpmcmlZ0MIZJqjyclyWWYZhoLVmSWszu3a+x6JGWNGUYXSoix2ffEAi1u91NwoRxxsavCGi/f/dNs2lOPTDl3SdPQXg1xmYREOSi5+n67ePGR08TSanCUXn0fzI68xse2acvq8kfp1j6GI7Pcd3kUrEWL7xM6KzFhV92CbVkmknR+8/+xjo+o7U0DmcsTThhjbqmh8lOns5oRlNWMEoIppceph0rJuR3hPEr3Xg2BnmLN3I/NVvoqwaSppTbrMpTRPr+YPhK38y0nuSTLwHbWdQhoVhVnvvWGEFItQ0tNHQso6ZC9ffbN9ESvMgdcdteT5aOzuCODaCO28Fo1SHGtyk89c6XhDjt+XTcjBx10kpcR7+wcRbfOdHM32XR7N7fziVe3w8/w9NbYayCLbNmQAAAABJRU5ErkJggg==">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
 <title>Quel dirigeant êtes-vous ? — CLAIR®</title>
+
+<!-- ============ OPEN GRAPH / LINKEDIN ============ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CLAIR®">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://danieljennepin.github.io/clair-public/archetype/">
+<meta property="og:title" content="Quel dirigeant êtes-vous ? — CLAIR®">
+<meta property="og:description" content="10 archétypes de dirigeants de PME. Identifiez le vôtre en 2 minutes — et découvrez les tensions décisionnelles qui l'accompagnent. Un outil du tiers de confiance décisionnel CLAIR®.">
+<meta property="og:image" content="https://danieljennepin.github.io/clair-public/archetype/preview.png?v=1">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CLAIR® — Archétype décisionnel">
+
+<!-- Twitter Card (fallback universel) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quel dirigeant êtes-vous ? — CLAIR®">
+<meta name="twitter:description" content="10 archétypes de dirigeants de PME. Identifiez le vôtre en 2 minutes.">
+<meta name="twitter:image" content="https://danieljennepin.github.io/clair-public/archetype/preview.png?v=1">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://danieljennepin.github.io/clair-public/archetype/">
+<!-- ================================================= -->
+
 <meta name="description" content="10 archétypes de dirigeants de PME. Identifiez le vôtre en 2 minutes — et découvrez les tensions décisionnelles qui l'accompagnent.">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
